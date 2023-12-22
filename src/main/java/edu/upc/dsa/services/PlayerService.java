@@ -77,4 +77,21 @@ public class PlayerService {
             return Response.status(402).build();
         }
     }
+
+    //Servei que retorna una llista amb tots els missatges
+    @GET
+    @ApiOperation(value = "Obtain the messages", notes = "View messages")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Message.class, responseContainer = "List"),
+    })
+    @Path("/messages")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMessages() throws SQLException {
+        List<Message> messages = this.pm.getMessages();
+        GenericEntity<List<Message>> entity = new GenericEntity<List<Message>>(messages) {};
+        return Response.status(201).entity(entity).build();
+    }
+
+
+
 }

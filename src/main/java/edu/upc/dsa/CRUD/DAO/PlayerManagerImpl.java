@@ -3,13 +3,11 @@ package edu.upc.dsa.CRUD.DAO;
 import edu.upc.dsa.CRUD.MYSQL.FactorySession;
 import edu.upc.dsa.CRUD.MYSQL.Session;
 import org.apache.log4j.Logger;
-import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.*;
 
 import java.util.List;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class PlayerManagerImpl implements PlayerManager {
@@ -69,5 +67,19 @@ public class PlayerManagerImpl implements PlayerManager {
         }
         logger.info("Player with id "+ player.getIdPlayer()  + " found");
         return player;
+    }
+    @Override
+    public List<Message> getMessages() throws SQLException{
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            List<Message> msgList = new ArrayList<Message>();
+            msgList = session.findAll(Message.class);
+            return msgList;
+        } catch (Exception e){
+            throw new SQLException();
+        }finally {
+            session.close();
+        }
     }
 }

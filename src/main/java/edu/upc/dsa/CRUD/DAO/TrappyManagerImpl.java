@@ -134,4 +134,5 @@ public class TrappyManagerImpl implements TrappyManager {
     public int getLoggedPlayers() {
         return this.playersLogged.size();
     }
+
 }
